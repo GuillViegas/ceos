@@ -5,12 +5,12 @@ import pandas as pd
 
 class BitcoinTimeSeries:
 
-    def __init__(self, dataset=None, file_path=None):
-        if not (dataset or file_path):
+    def __init__(self, dataset=None, path=None):
+        if not (dataset or path):
             raise ValueError("BitcoinTimeSeries needs to be inicialized with some dataset")
         
-        self.dataset = dataset or pd.read_csv(file_path)
-        self.dataset.fillna(method='ffill', inplace=True)
+        self.dataset = dataset or pd.read_csv(path)
+        self.dataset['Close'].fillna(method='ffill', inplace=True)
 
         self.date_from_timestamp()
 
