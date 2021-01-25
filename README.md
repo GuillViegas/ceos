@@ -4,7 +4,7 @@ Ceos é uma demostração de script que calcula determinados indicadores técnic
 
 ## Instalação do ambiente
 
-Recomendamos criar uma _virtualenv_ para o projeto. Para instruções de como fazer isso, você pode acessar o link [aqui] (https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv/).
+Recomendamos criar uma _virtualenv_ para o projeto. Para instruções de como fazer isso, você pode acessar o link [aqui](https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv/).
 
 Com a _virtualenv_ ativada, você pode executar o seguinte comando para instalar as dependências:
 
