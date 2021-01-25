@@ -2,6 +2,16 @@
 
 Ceos é uma demostração de script que calcula determinados indicadores técnicos a partir de uma série temporal (histórica) representando as variações de preço de um determinado ativo financeiro. 
 
+## Instalação do ambiente
+
+Recomendamos criar uma _virtualenv_ para o projeto. Para instruções de como fazer isso, você pode acessar o link [aqui] (https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv/).
+
+Com a _virtualenv_ ativada, você pode executar o seguinte comando para instalar as dependências:
+
+```sh
+    $ pip install -r requirements.txt
+```
+
 ## Organização dos arquivos
 
 **indicators.py** : este arquivo armazena a lógica para calcular determinado indicador técnico a partir de uma _dataset_. 
