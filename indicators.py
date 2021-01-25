@@ -1,14 +1,17 @@
 import pandas as pd
 
 
-def ema(dataset, field, span=10):
-    """ Exponential Moving Average """
-    return dataset[field].ewm(span=span, adjust=False).mean()
+def ema(dataset, begin, end, field, span=10):
+    """ Exponential Moving Average 
+        ref: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.ewm.html 
+    """
+    return dataset.loc[begin:end][field].ewm(span=span, adjust=False).mean()
 
 
-def rsi(dataset, begin_date, end_date, field, span=14):
+def rsi(dataset, begin, end, field, span=14, offset=True):
     """ Relative Strength Index """
-    dataset = pd.concat([dataset.loc[:begin_date].tail(span), dataset.loc[begin_date:end_date]])
+    if offset:
+        dataset = pd.concat([dataset.loc[:begin].tail(span), dataset.loc[begin:end]])
 
     delta = dataset[field].diff()
     
@@ -21,17 +24,25 @@ def rsi(dataset, begin_date, end_date, field, span=14):
 
     rsi = 100 - (100/ (1 + (gain_avg/loss_avg)))
 
-    return  rsi[span:]
+    if offset:
+        rsi = rsi[span:]
 
-def bb(dataset, begin_date, end_date, field, span=20, multi_factor=2):
+    return  rsi
+
+def bollinger_bands(dataset, begin, end, field, span=20, multi_factor=2, offset=True):
     """ Bollinger Bands """
-    dataset = pd.concat([dataset.loc[:begin_date].tail(span), dataset.loc[begin_date:end_date]])
+    
+    if offset:
+        dataset = pd.concat([dataset.loc[:begin].tail(span), dataset.loc[begin:end]])
 
     sma = dataset[field].rolling(window=span).mean()
     factor = multi_factor * dataset[field].rolling(window=span).std()
     
-    down_bb = sma - factor
-    up_bb = sma + factor
+    down_band = sma - factor
+    up_band = sma + factor
 
-    return sma[span:], down_bb[span:], up_bb[span:]
+    if offset:
+        sma, down_band, up_band = sma[span:], down_band[span:], up_band[span:]
+
+    return sma, down_band, up_band
 

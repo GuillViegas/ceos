@@ -1,13 +1,12 @@
 FROM python:3.8
 
-ENV PYTHONUNBUFFERED=1
+ADD requirements.txt /
 
-RUN mkdir /app
-WORKDIR /app
+ADD assets.py /
+ADD indicators.py /
+ADD indicators_script.py /
+ADD $FILE /
 
-COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
-ADD . /app/
-
-CMD ["python", "script.py"]
+CMD python indicators_script.py -file $FILE -begin_date "$BEGIN" -end_date "$END"
