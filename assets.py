@@ -4,14 +4,18 @@ import pandas as pd
 
 class AssetTimeSeries:
 
-    def __init__(self, dataset=None, path=None):
+    def __init__(self, dataset=None, path=None, data_based_index=False):
         if not (dataset or path):
             raise ValueError("AssetTimeSeries needs to be inicialized with some dataset")
         
         self.dataset = dataset or pd.read_csv(path)
         self.dataset['Close'].fillna(method='ffill', inplace=True)
 
-        self.dataset.set_index('Timestamp', inplace=True)
+        if data_based_index:
+            self.date_idx_from_timestamp()
+
+        else:
+            self.dataset.set_index('Timestamp', inplace=True)
 
 
     def date_idx_from_timestamp(self):
